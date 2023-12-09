@@ -10,15 +10,12 @@ int* ler_vetor(int *vetor, int tamanho){
 	return vetor;
 }
 
-int compara(int* vet_A,int tam_a,int* vet_B, int tam_b,int elemen){
+int compara(int* vet_A,int tam_a,int* vet_B, int tam_b){
 	for(int i=0;i<tam_a;i++){
-		if(vet_A[i]==elemen){
-			return 1;
-		}
-	}
-	for(int j=0;j<tam_b;j++){
-		if(vet_B[j]==elemen){
-			return 2;
+		for(int j=0;j<tam_b;j++){
+			if(vet_A[i]==vet_B[j]){
+				return 1;
+			}
 		}
 	}
 	return 0;
@@ -26,7 +23,7 @@ int compara(int* vet_A,int tam_a,int* vet_B, int tam_b,int elemen){
 
 int main(){
 	setlocale(LC_ALL, "Portuguese");
-	int n_a,n_b,elemento,verifica;
+	int n_a,n_b,verifica;
 	
 	printf("Digite o tamanho do vetor A:");
 	scanf("%d",&n_a);
@@ -37,18 +34,12 @@ int main(){
 	scanf("%d",&n_b);
 	int *vetor_B = (int *)malloc(n_b*sizeof(int));
 	ler_vetor(vetor_B,n_b);
+
+	verifica = compara(vetor_A,n_a,vetor_B,n_b);
 	
-	printf("Qual elemento você deseja verificar?");
-	scanf("%d",&elemento);
-	
-	verifica = compara(vetor_A,n_a,vetor_B,n_b,elemento);
-	
-	if(verifica==1){
-		printf("O elemento procurado está no Vetor A.");
-	}else if(verifica==2){
-		printf("O elemento procurado está no Vetor B.");
+	if(verifica!=0){
+		printf("Há pelo menos um elemento idêntico nos dois vetores.");
 	}else{
-		printf("O elemento digitado não está em nenhium dos vetores.");
+		printf("Não há valores idênticos.");
 	}
-	
 }
